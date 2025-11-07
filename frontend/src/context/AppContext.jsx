@@ -22,7 +22,9 @@ const UserProvider = ({ children }) => {
       gender: "male",
       dob: "",
     });
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  // Normalize backend URL: remove any trailing slashes to avoid double-slash when building paths
+  const rawBackendUrl = import.meta.env.VITE_BACKEND_URL;
+  const BACKEND_URL = rawBackendUrl ? String(rawBackendUrl).replace(/\/+$/, '') : '';
 
   const getAvailableDoctors = async () => {
     try {

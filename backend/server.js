@@ -98,6 +98,16 @@ connectCloudinary();
 app.use(cors());
 app.use(express.json());
 
+// Request logger (temporary) — helps debug 404s / routing issues
+app.use((req, res, next) => {
+  try {
+    console.log(`[REQ] ${new Date().toISOString()} ${req.method} ${req.originalUrl} Host:${req.headers.host}`);
+  } catch (e) {
+    // ignore logging errors
+  }
+  next();
+});
+
 // Routes
 app.use('/api/admin', adminRouter);
 app.use('/api/doctor', doctorRouter);
